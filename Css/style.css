@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #333;
+}
+p{text-align: center;}
+
+#LogoOfficiel {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#play {
+    background-color: #007BFF;
+}
+
+#play:hover {
+    background-color: #0069D9;
+}
+
+#valider {
+    background-color: #FFC107;
+}
+
+#valider:hover {
+    background-color: #E0A800;
+}
+
+#calculation-container, #score-container, #notepad-container {
+    
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#calculation {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+input[type="text"], #notepad {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: calc(100% - 22px);
+    box-sizing: border-box;
+}
+
+#score-container p {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#notepad-container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+#notepad {
+    resize: none;
+}
