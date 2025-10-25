@@ -5,32 +5,55 @@ let combo = 1;
 
 document.getElementById('plus').addEventListener('click', () => {
     currentOperation = '+';
+    setActiveButton('operation', 'plus');
 });
 
 document.getElementById('minus').addEventListener('click', () => {
     currentOperation = '-';
+    setActiveButton('operation', 'minus');
 });
 
 document.getElementById('multiply').addEventListener('click', () => {
     currentOperation = '*';
+    setActiveButton('operation', 'multiply');
 });
 
 document.getElementById('facile').addEventListener('click', () => {
     currentDifficulty = 'facile';
+    setActiveButton('niveau', 'facile');
 });
 
 document.getElementById('normal').addEventListener('click', () => {
     currentDifficulty = 'normal';
+    setActiveButton('niveau', 'normal');
 });
 
 document.getElementById('difficile').addEventListener('click', () => {
     currentDifficulty = 'difficile';
+    setActiveButton('niveau', 'difficile');
 });
+// Ajoute la classe active sur le bouton sélectionné et la retire des autres
+function setActiveButton(type, id) {
+    if (type === 'operation') {
+        ['plus', 'minus', 'multiply'].forEach(btn => {
+            document.getElementById(btn).classList.remove('active-btn');
+        });
+        document.getElementById(id).classList.add('active-btn');
+    } else if (type === 'niveau') {
+        ['facile', 'normal', 'difficile'].forEach(btn => {
+            document.getElementById(btn).classList.remove('active-btn');
+        });
+        document.getElementById(id).classList.add('active-btn');
+    }
+}
 
 document.getElementById('play').addEventListener('click', () => {
     document.getElementById('calculation-container').style.display = 'block';
     document.getElementById('score-container').style.display = 'block';
     generateCalculation();
+    // Sélection par défaut si rien n'est sélectionné
+    setActiveButton('operation', currentOperation === '+' ? 'plus' : currentOperation === '-' ? 'minus' : 'multiply');
+    setActiveButton('niveau', currentDifficulty);
 });
 
 document.getElementById('valider').addEventListener('click', () => {
@@ -69,19 +92,37 @@ function evaluateCalculation() {
 
 // Fonctions de génération de calculs pour chaque difficulté et opération
 function generateEasyCalculation() {
-    const a = Math.floor(Math.random() * 10);
-    const b = Math.floor(Math.random() * 10);
+    // Facile : nombres de 0 à 10, pas de négatif, pas de parenthèses
+    const a = Math.floor(Math.random() * 11);
+    const b = Math.floor(Math.random() * 11);
     return `${a} ${currentOperation} ${b}`;
 }
 
 function generateNormalCalculation() {
-    const a = Math.floor(Math.random() * 50);
-    const b = Math.floor(Math.random() * 50);
+    // Normal : nombres de 10 à 99, possibilité de négatif, pas de parenthèses
+    let a = Math.floor(Math.random() * 90) + 10;
+    let b = Math.floor(Math.random() * 90) + 10;
+    // Pour soustraction, possibilité de négatif
+    if (currentOperation === '-') {
+        if (Math.random() < 0.5) {
+            [a, b] = [b, a];
+        }
+    }
     return `${a} ${currentOperation} ${b}`;
 }
 
 function generateHardCalculation() {
-    const a = Math.floor(Math.random() * 20);
-    const b = Math.floor(Math.random() * 20);
-    return `${a} ${currentOperation} ${b}`;
+    // Difficile : nombres de -50 à 99, possibilité de parenthèses, multiplications, négatifs
+    let a = Math.floor(Math.random() * 150) - 50;
+    let b = Math.floor(Math.random() * 150) - 50;
+    let op = currentOperation;
+    // Ajout de parenthèses et opérations combinées
+    if (Math.random() < 0.5) {
+        // Ex : (a op b) op c
+        let c = Math.floor(Math.random() * 150) - 50;
+        let op2 = ['+', '-', '*'][Math.floor(Math.random() * 3)];
+        return `(${a} ${op} ${b}) ${op2} ${c}`;
+    } else {
+        return `${a} ${op} ${b}`;
+    }
 }

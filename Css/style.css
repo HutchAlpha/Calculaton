@@ -34,6 +34,12 @@ button {
     transition: background-color 0.3s ease;
 }
 
+.active-btn {
+    background-color: #ff9800 !important;
+    color: #fff !important;
+    box-shadow: 0 0 8px #ff9800;
+}
+
 button:hover {
     background-color: #45a049;
 }
